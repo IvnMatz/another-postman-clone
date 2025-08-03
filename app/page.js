@@ -1,10 +1,8 @@
 import Image from "next/image";
-import Searcher from "./components/request";
+import App from "./components/app";
 
 export default function Home() {
   return (
-    <div>
-      <Searcher />
-    </div>
+    <App />
   );
 }
