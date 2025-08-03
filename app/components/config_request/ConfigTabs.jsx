@@ -3,13 +3,13 @@
 import { useState } from "react"
 import ParamsTab from "./params";
 
-export default function ConfigTabs(){
+export default function ConfigTabs({ setParams, params }){
 
     const [aTab, changeTab] = useState("params");
     let content;
 
     if(aTab == "params"){
-        content = <ParamsTab />;
+        content = <ParamsTab setParams={setParams} params={params} />;
     }else if(aTab == "headers"){
         content = "headers"
     }else if(aTab == "body" ){

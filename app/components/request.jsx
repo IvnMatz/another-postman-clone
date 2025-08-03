@@ -1,10 +1,26 @@
 'use client'
 
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 
-export default function Searcher(){
+export default function Searcher( {params} ){
     const methodRef = useRef(null);
     const urlRef = useRef(null);
+
+    useEffect( () => {
+        let parameters = "?" ;
+        let index = 0;
+        for(let element of params){
+            if(element.is_used){
+                parameters += element.key.toString() + "=" + element.value.toString();
+                if(params[index+1] && params[index+1].is_used){
+                    parameters += "&";
+                }
+            }
+            index++;
+        }
+        urlRef.current.value = urlRef.current.value.slice(0, urlRef.current.value.indexOf("?"));
+        urlRef.current.value += parameters;
+    }, [params] )
     
     async function sendReq(){
         const response = await fetch(urlRef.current.value, {

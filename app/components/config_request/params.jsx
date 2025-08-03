@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function ParamRow( {data, onToggle} ){
 
@@ -15,12 +15,16 @@ function ParamRow( {data, onToggle} ){
     );
 }
 
-export default function ParamsTab(){
+export default function ParamsTab( {setParams, params} ){
     const [data, cData] = useState([]);
     const keyRef = useRef(null);
     const ValueRef = useRef(null);
     const decRef = useRef(null);
     const activeRef = useRef(null);
+
+    useEffect( () => {
+        cData(params);
+    }, [] );
 
     function handleClick(){
         let obj = {
@@ -30,13 +34,16 @@ export default function ParamsTab(){
             'is_used' : activeRef.current.checked
         }
 
+        setParams([...data, obj]);
         cData([...data, obj]);
+        
     }
 
     function handleToggleIsUsed(index){
         const newData = [...data];
         newData[index].is_used = !newData[index].is_used;
         cData(newData);
+        setParams(newData);
     }
 
     return(
