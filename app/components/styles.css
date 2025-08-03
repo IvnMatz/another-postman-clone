@@ -1,0 +1,38 @@
+.ResponseDiv{
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 12px;
+    text-align: center;
+    height: 35vh;
+    max-height: 35vh;
+}
+
+.ResponseTabs{
+    text-align: left;
+}
+
+.StatusDiv{
+    margin-left: 20px;
+    display: inline-block;
+    padding: 5px;
+}
+
+.ResponseDiv textarea{
+    width: 90%;
+    height: 30vh;
+    
+}
+
+/* STATUS BACKGROUNDS */
+#ok{
+    background-color: rgba(122, 250, 122, 0.63);
+}
+#red{
+    background-color: rgba(172, 236, 255, 0.822);
+}
+#clientError{
+    background-color: rgba(255, 80, 80, 0.733);
+}
+#serverError{
+    background-color: rgba(255, 242, 66, 0.712);
+}

@@ -1,10 +1,12 @@
 'use client'
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
-export default function Searcher( {params} ){
+export default function Searcher( {params, Setresp} ){
     const methodRef = useRef(null);
     const urlRef = useRef(null);
+
+    const [response, setResponse] = useState({});
 
     useEffect( () => {
         let parameters = "?" ;
@@ -18,7 +20,10 @@ export default function Searcher( {params} ){
             }
             index++;
         }
-        urlRef.current.value = urlRef.current.value.slice(0, urlRef.current.value.indexOf("?"));
+        if(urlRef.current.value.indexOf("?") > 0){
+            urlRef.current.value = urlRef.current.value.slice(0, urlRef.current.value.indexOf("?"));
+        }
+        
         urlRef.current.value += parameters;
     }, [params] )
     
@@ -29,9 +34,15 @@ export default function Searcher( {params} ){
                 "Content-Type": "application/json"
             }
         })
-        if(response.ok){
-            alert('EEEE')
+        const obj = {
+            status : response.status,
+            status_txt : response.statusText,
+            headers : response.headers,
+            body : await response.text()
+
         }
+        setResponse(obj);
+        Setresp(obj);
     }
 
     return(
