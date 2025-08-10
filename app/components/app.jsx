@@ -11,12 +11,14 @@ export default function App() {
 
   const [params, setParams] = useState([]);
   const [headers, setHeaders] = useState([]);
+  const [bodyRaw, setBodyRaw] = useState("{}");
+  const [body, setBody] = useState([]);
   const [response, setResponse] = useState({});
 
   return (
     <div>
-      <Searcher params={params} Setresp={setResponse} headers={headers} />
-      <ConfigTabs setParams={setParams} params={params} setHeaders={setHeaders} headers={headers} />
+      <Searcher params={params} Setresp={setResponse} headers={headers} body={body} />
+      <ConfigTabs setParams={setParams} params={params} setHeaders={setHeaders} headers={headers} body={body} setBody={setBody} />
       <Response responseData={response} />
     </div>
   );

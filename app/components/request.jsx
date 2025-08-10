@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 
-export default function Searcher( {params, Setresp, headers} ){
+export default function Searcher( {params, Setresp, headers, body} ){
     const methodRef = useRef(null);
     const urlRef = useRef(null);
 
@@ -28,15 +28,26 @@ export default function Searcher( {params, Setresp, headers} ){
     }, [params] )
     
     async function sendReq(){
+        // CREACIÓN DE LOS HEADERS
         let hed = {};
         for(let element of headers){
             if(element.is_used){
                 hed[element.key.toString()] = element.value.toString()
             }
         }
+
+        // CREACIÓN DEL BODY
+        let bod = {};
+        for(let element of body){
+            if(element.is_used){
+                bod[element.key.toString()] = element.value.toString()
+            }
+        }
+
         const response = await fetch(urlRef.current.value, {
             method : methodRef.current.value,
-            headers : hed
+            headers : hed,
+            body : JSON.stringify(bod)
         })
         const obj = {
             status : response.status,
@@ -50,14 +61,14 @@ export default function Searcher( {params, Setresp, headers} ){
     }
 
     return(
-        <div>
+        <div className="requestDiv">
             <select name="methodSel" id="methods" ref={methodRef}>
                 <option value="GET"> GET </option>
                 <option value="POST"> POST </option>
                 <option value="PUT"> PUT </option>
                 <option value="DELETE"> DELETE </option>
             </select>
-            <input type="text" name="url" id="urlinput" autoComplete="off" ref={urlRef} />
+            <input type="text" name="url" id="urlinput" autoComplete="off" ref={urlRef}  />
 
             <button id="request" onClick={sendReq}> SEND REQUEST </button>
         </div>

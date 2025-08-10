@@ -5,7 +5,7 @@ import ParamsTab from "./params";
 import BodyWriter from "./body";
 import HeadersTab from "./headers";
 
-export default function ConfigTabs({ setParams, params, setHeaders, headers }){
+export default function ConfigTabs({ setParams, params, setHeaders, headers, setBody, body }){
 
     const [aTab, changeTab] = useState("params");
     let content;
@@ -15,7 +15,7 @@ export default function ConfigTabs({ setParams, params, setHeaders, headers }){
     }else if(aTab == "headers"){
         content = <HeadersTab headers={headers} setHeaders={setHeaders} />;
     }else if(aTab == "body" ){
-        content = <BodyWriter />
+        content = <BodyWriter setBody={setBody} body={body} />
     }
 
     return(
