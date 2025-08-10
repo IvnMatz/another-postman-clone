@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 
-export default function Searcher( {params, Setresp} ){
+export default function Searcher( {params, Setresp, headers} ){
     const methodRef = useRef(null);
     const urlRef = useRef(null);
 
@@ -28,11 +28,15 @@ export default function Searcher( {params, Setresp} ){
     }, [params] )
     
     async function sendReq(){
+        let hed = {};
+        for(let element of headers){
+            if(element.is_used){
+                hed[element.key.toString()] = element.value.toString()
+            }
+        }
         const response = await fetch(urlRef.current.value, {
             method : methodRef.current.value,
-            headers : {
-                "Content-Type": "application/json"
-            }
+            headers : hed
         })
         const obj = {
             status : response.status,

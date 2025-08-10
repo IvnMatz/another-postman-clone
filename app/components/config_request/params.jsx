@@ -48,6 +48,7 @@ export default function ParamsTab( {setParams, params} ){
 
     return(
         <div className="ParamsTab">
+            Query Params
             <table>
                 <thead>
                     <tr>

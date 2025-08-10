@@ -1,17 +1,49 @@
 import { useEffect, useRef, useState } from "react";
 
+function HeadersTable({ responseData, aTab }){
+
+    let content = [];
+
+    if(Object.keys(responseData).length > 0 && aTab=="headers"){
+        for(let [key, value] of responseData.headers.entries()){
+        content.push( [key, value] );
+        console.log(content)
+    }
+    }
+    
+
+    return(
+        <table>
+            <thead>
+                <tr>
+                    <th> Key </th>
+                    <th> Value </th>
+                </tr>
+            </thead>
+            <tbody>
+                {content.map( (d, index) => (
+                    <tr key={index}>
+                        <td> {d[0]} </td>
+                        <td> {d[1]} </td>
+                    </tr>
+                ) )}
+            </tbody>
+        </table>
+    );
+}
+
 
 export default function Response({ responseData }){
     const textRef = useRef(null);
     const [aTab, cTab] = useState("body");
     const [status, setStatus] = useState("");
-    const [id, setID] = useState("");
+    
     let content = "";
 
     if(aTab == "body"){
         content = <textarea ref={textRef} disabled={true}></textarea>
     }else if(aTab == "headers"){
-        content = "headers"
+        content = <HeadersTable responseData={responseData} aTab={aTab} />
     }
 
     let dynamicId = "";
