@@ -4,6 +4,7 @@ import { useState } from "react"
 import ParamsTab from "./params";
 import BodyWriter from "./body";
 import HeadersTab from "./headers";
+import './configstyles.css';
 
 export default function ConfigTabs({ setParams, params, setHeaders, headers, setBody, body }){
 
